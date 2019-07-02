@@ -76,7 +76,7 @@ class App extends Component {
     this.setState({
       shot: 1,
       currFrame: currFrame + 1,
-      pins: Array(10).fill(0)
+      pins: Array(10).fill(1)
     });
   }
   
@@ -85,7 +85,7 @@ class App extends Component {
       <div>
         <Scoreboard />
         <Board pins={this.state.pins} />
-        <Keypad />
+        <Keypad handleClick={this.handleClick}/>
         <NextFrame handleReset={this.handleReset} />
       </div>
     );
