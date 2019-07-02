@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Keypad from './Keypad.jsx';
 import Board from './Board.jsx';
 import Scoreboard from './Scoreboard.jsx';
+import NextFrame from './NextFrame.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
         <Scoreboard />
         <Board pins={this.state.pins} />
         <Keypad />
+        <NextFrame handleReset={this.handleReset} />
       </div>
     );
   }
