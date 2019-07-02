@@ -1,13 +1,14 @@
 import React from 'react';
+import { GiBowlingPin } from 'react-icons/gi';
 
 const Pin = ({ state }) => {
   return state ? (
     <React.Fragment>
-      <p>Still Up</p>
+      <GiBowlingPin size={48} />
     </React.Fragment>
   ) : (
     <React.Fragment>
-      <p>Knoced Down</p>
+      <GiBowlingPin size={48} color="red" />
     </React.Fragment>
   );
 };
