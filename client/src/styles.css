@@ -1,3 +1,31 @@
 .board {
   text-align: center;
 }
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 2em 8em;
+  padding: 2em;
+}
+
+.frame-inactive {
+  border: solid firebrick;
+}
+
+.frame-active {
+  border: solid seagreen;
+}
+
+.first-shot {
+  padding: 0px 5px;
+}
+.second-shot {
+  padding: 0px 5px;
+  border-bottom: solid black;
+  border-left: solid black;
+}
+.score {
+  width: 100%;
+}

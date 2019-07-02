@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Keypad from './Keypad.jsx';
 import Board from './Board.jsx';
+import Scoreboard from './Scoreboard.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Scoreboard />
         <Board pins={this.state.pins} />
         <Keypad />
       </div>
