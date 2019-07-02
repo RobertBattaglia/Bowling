@@ -1,7 +1,16 @@
 import React from 'react';
+import { GiBowlingPin } from 'react-icons/gi';
 
 const Pin = ({ state }) => {
-  return <React.Fragment>{state}</React.Fragment>;
+  return state ? (
+    <React.Fragment>
+      <GiBowlingPin size={48} />
+    </React.Fragment>
+  ) : (
+    <React.Fragment>
+      <GiBowlingPin size={48} color="red" />
+    </React.Fragment>
+  );
 };
 
 export default Pin;
