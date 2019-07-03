@@ -9,16 +9,22 @@ body {
   display: flex;
   justify-content: center;
   text-align: center;
-  margin: 2em 8em;
-  padding: 2em;
+  margin: 1em 0em 5em 0em;
+  font-family: Verdana;
+  font-weight: bold;
+  font-size: 24px;
 }
 
 .frame-inactive {
   border: solid firebrick;
+  font-size: 18px;
+  font-weight: 200;
 }
 
 .frame-active {
   border: solid seagreen;
+  font-size: 18px;
+  font-weight: 200;
 }
 
 .first-shot {
