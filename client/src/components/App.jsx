@@ -24,6 +24,10 @@ class App extends Component {
 
   handleClick(num) {
     let { frames, frame, currFrame, shot } = this.state;
+    if (shot === 3) {
+      this.handleReset();
+      return;
+    }
     if (num === 10 && shot === 1) {
       let newFrames = frames.slice();
       newFrames.push({ shot1: 10, shot2: '-', score: 10 });
@@ -47,17 +51,22 @@ class App extends Component {
         counter--;
       }
 
-      let score = pins.filter(pin => {
+      let shot2Pins = pins.filter(pin => {
         return pin === 0;
       }).length;
 
       let newFrame = Object.assign({}, frame);
       if (shot === 1) {
         newFrame.shot1 = num;
-        newFrame.score = num;
       } else {
-        newFrame.shot2 = score;
-        newFrame.score = num + score;
+        newFrame.shot2 = shot2Pins - newFrame.shot1;
+      }
+
+      if (currFrame === 0) {
+        newFrame.score = newFrame.shot1 + newFrame.shot2;
+      } else {
+        newFrame.score =
+          newFrame.shot1 + newFrame.shot2 + frames[currFrame - 1].score;
       }
 
       let newFrames = frames.slice();
@@ -76,16 +85,21 @@ class App extends Component {
     this.setState({
       shot: 1,
       currFrame: currFrame + 1,
+      frame: {
+        shot1: 0,
+        shot2: 0,
+        score: 0
+      },
       pins: Array(10).fill(1)
     });
   }
-  
+
   render() {
     return (
       <div>
         <Scoreboard />
         <Board pins={this.state.pins} />
-        <Keypad handleClick={this.handleClick}/>
+        <Keypad handleClick={this.handleClick} />
         <NextFrame handleReset={this.handleReset} />
       </div>
     );
