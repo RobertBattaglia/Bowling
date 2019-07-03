@@ -1,7 +1,8 @@
 module.exports = {
   handleStrike: (frames, currFrame) => {
     let newFrames = frames.slice();
-    newFrames[currFrame] = { shot1: 10, shot2: '-', score: 10 };
+    let totalScore = currFrame === 0 ? 10 : frames[currFrame - 1].score + 10
+    newFrames[currFrame] = { shot1: 10, shot2: '-', shot3: '-', score: totalScore }
     return newFrames;
   },
   randomizePins: (pins, num) => {
@@ -44,6 +45,12 @@ module.exports = {
   handleNewFrames: (frames, currFrame, frame) => {
     let newFrames = frames.slice();
     newFrames[currFrame] = frame;
+    return newFrames;
+  },
+  handleThirdShot: (frames, num) => {
+    var newFrames = frames.slice()
+    newFrames[9].shot3 = num
+    newFrames[9].score = newFrames[9].score + num
     return newFrames;
   }
 };

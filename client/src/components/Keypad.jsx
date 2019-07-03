@@ -39,15 +39,6 @@ export default class Keypad extends Component {
               </button>
             </td>
             <td>
-              <button
-                type='button'
-                className='btn btn-primary next'
-                onClick={e => {
-                  this.props.handleReset();
-                }}
-              >
-                Next
-              </button>
             </td>
             <td>
               <button

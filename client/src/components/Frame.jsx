@@ -33,7 +33,7 @@ const Frame = ({ currFrame, num, active, frame }) => {
             {num === 10 ? (
               <React.Fragment>
                 <td className="second-shot">{frame.shot2}</td>
-                <td className="second-shot">{frame.shot2}</td>
+                <td className="second-shot">{frame.shot3}</td>
               </React.Fragment>
             ) : (
               <td className="second-shot">
