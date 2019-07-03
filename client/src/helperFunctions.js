@@ -11,12 +11,8 @@ module.exports = {
       var random = Math.floor(Math.random() * Math.floor(index.length));
       index.splice(random, 1);
     }
-    let counter = num;
-    while (counter > 0) {
-      var random = Math.floor(Math.random() * Math.floor(index.length));
-      let temp = index.splice(random, 1);
-      newPins[temp] = 0;
-      counter--;
+    for (let ind of index) {
+      newPins[ind] = 0;
     }
     return newPins;
   },
