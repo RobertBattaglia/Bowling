@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       pins: Array(10).fill(1),
       shot: 1,
-      frames: [],
+      frames: Array(10).fill({shot1: 0, shot2: 0, score: 0}),
       frame: {
         shot1: 0,
         shot2: 0,
