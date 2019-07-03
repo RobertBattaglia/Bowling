@@ -74,7 +74,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Scoreboard />
+        <Scoreboard frames={this.state.frames} />
         <Board pins={this.state.pins} />
         <Keypad handleClick={this.handleClick} handleReset={this.handleReset} />
         <NextFrame handleReset={this.handleReset} />
