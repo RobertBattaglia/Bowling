@@ -3,7 +3,7 @@ import Keypad from './Keypad.jsx';
 import Board from './Board.jsx';
 import Scoreboard from './Scoreboard.jsx';
 import NextFrame from './NextFrame.jsx';
-
+import helpers from '../helperFunctions.js';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -23,56 +23,33 @@ class App extends Component {
   }
 
   handleClick(num) {
-    let { frames, frame, currFrame, shot } = this.state;
+    let { frames, frame, currFrame, shot, pins } = this.state;
     if (shot === 3) {
       this.handleReset();
       return;
     }
+    //if strike -> make all pins drop, set shot to 3, add strike frame to frame list
     if (num === 10 && shot === 1) {
-      let newFrames = frames.slice();
-      newFrames.push({ shot1: 10, shot2: '-', score: 10 });
       this.setState({
         pins: Array(10).fill(0),
-        shot: 2,
-        frames: newFrames
+        shot: 3,
+        frames: helpers.handleStrike(frames)
       });
     } else {
-      let pins = this.state.pins.slice();
-      let index = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-      for (let i = 0; i < 10 - num; i++) {
-        var random = Math.floor(Math.random() * Math.floor(index.length));
-        index.splice(random, 1);
-      }
-      let counter = num;
-      while (counter > 0) {
-        var random = Math.floor(Math.random() * Math.floor(index.length));
-        let temp = index.splice(random, 1);
-        pins[temp] = 0;
-        counter--;
-      }
-
-      let shot2Pins = pins.filter(pin => {
-        return pin === 0;
-      }).length;
+      //randomize the pins depending on number clicked
+      let newPins = helpers.randomizePins(pins, num);
 
       let newFrame = Object.assign({}, frame);
-      if (shot === 1) {
-        newFrame.shot1 = num;
-      } else {
-        newFrame.shot2 = shot2Pins - newFrame.shot1;
-      }
+      //add scoring per shot and score to new frame
+      helpers.handleShots(newFrame, newPins, shot, num);
+      helpers.handleScore(frames, newFrame, currFrame);
 
-      if (currFrame === 0) {
-        newFrame.score = newFrame.shot1 + newFrame.shot2;
-      } else {
-        newFrame.score =
-          newFrame.shot1 + newFrame.shot2 + frames[currFrame - 1].score;
-      }
+      //add newly created frame to list of new frames
+      let newFrames = helpers.handleNewFrames(frames, currFrame, newFrame);
 
-      let newFrames = frames.slice();
-      newFrames[currFrame] = newFrame;
+      //update frames, current frame, randomized pins, and increase shot by 1
       this.setState({
-        pins: pins,
+        pins: newPins,
         shot: this.state.shot + 1,
         frames: newFrames,
         frame: newFrame
