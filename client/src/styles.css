@@ -29,3 +29,15 @@
 .score {
   width: 100%;
 }
+
+/* ===================== Keypad =================== */
+.table {
+  width: 10%;
+  margin: 20px auto auto auto;
+  text-align: center;
+  padding: none;
+}
+
+.btn-primary {
+  width: 50px;
+}

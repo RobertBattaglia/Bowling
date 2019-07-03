@@ -7,6 +7,7 @@ module.exports = {
   randomizePins: (pins, num) => {
     let newPins = pins.slice();
     let index = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    //index represents what pins get knocked down -> splice out pins that don't get knocked down
     for (let i = 0; i < 10 - num; i++) {
       var random = Math.floor(Math.random() * Math.floor(index.length));
       index.splice(random, 1);

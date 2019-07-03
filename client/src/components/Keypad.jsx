@@ -1,10 +1,9 @@
-
 import React, { Component } from 'react';
 
 export default class Keypad extends Component {
   render() {
     return (
-      <table>
+      <table className='table table-sm table-bordered'>
         <tbody>
           {[[1, 2, 3], [4, 5, 6], [7, 8, 9]].map(row => {
             return (
@@ -13,6 +12,8 @@ export default class Keypad extends Component {
                   return (
                     <td key={num}>
                       <button
+                        type='button'
+                        className='btn btn-primary'
                         onClick={e => {
                           this.props.handleClick(num);
                         }}
@@ -28,6 +29,8 @@ export default class Keypad extends Component {
           <tr>
             <td>
               <button
+                type='button'
+                className='btn btn-primary'
                 onClick={e => {
                   this.props.handleClick(0);
                 }}
@@ -38,6 +41,8 @@ export default class Keypad extends Component {
             <td />
             <td>
               <button
+                type='button'
+                className='btn btn-primary'
                 onClick={e => {
                   this.props.handleClick(10);
                 }}
