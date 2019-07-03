@@ -13,7 +13,9 @@ export default class NextFrame extends Component {
   render() {
     return (
       <React.Fragment>
-        <button onClick={this.handleClick}>Next Frame</button>
+        <button className="next-frame" onClick={this.handleClick}>
+          {this.props.newGame ? 'New Game' : 'Next Frame'}
+        </button>
       </React.Fragment>
     );
   }
