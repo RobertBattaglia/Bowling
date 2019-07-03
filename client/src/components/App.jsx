@@ -16,7 +16,7 @@ class App extends Component {
         shot2: 0,
         score: 0
       },
-      currFrame: 0,
+      currFrame: 8,
       reset: false
     };
     this.handleClick = this.handleClick.bind(this);
@@ -27,17 +27,17 @@ class App extends Component {
     let { frames, frame, currFrame, shot, pins } = this.state;
 
     if (shot === 3 && frame.shot1 + frame.shot2 >= 10)  {
-      this.setState({
-        pins: Array(10.).fill(1)
-      }, () => {
         var newFrames = frames.slice()
         newFrames[9].shot3 = num
         newFrames[9].score = newFrames[9].score + num
+        let newPins = helpers.randomizePins(Array(10).fill(1), num)
         this.setState({
           frames: newFrames,
+          pins: newPins,
           reset: true
         })
-      })
+        return;
+      // })
     }
     //if strike -> make all pins drop, set shot to 3, add strike frame to frame list
     if (num === 10 && shot === 1) {
@@ -66,16 +66,12 @@ class App extends Component {
         frames: newFrames,
         frame: newFrame
       }, () => {
-        if (shot === 2 && currFrame !== 9) {
+        const {shot, currFrame, frame} = this.state
+        if (shot === 3 && currFrame !== 9) {
           this.setState({
             reset: true
           });
-        } else if ( shot === 2 && currFrame === 9 && frame.shot1 + frame.shot2 === 10) {
-          this.setState({
-            pins: Array(10).fill(1)
-          })
-        } else if (shot === 2 && currFrame === 9 && frame.shot1 + frame.shot2 < 10) {
-          console.log('yes')
+        } else if (shot === 3 && currFrame === 9 && frame.shot1 + frame.shot2 < 10) {
           this.setState({
             reset: true
           })
