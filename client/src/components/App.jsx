@@ -10,14 +10,15 @@ class App extends Component {
     this.state = {
       pins: Array(10).fill(1),
       shot: 1,
-      frames: Array(10).fill({shot1: 0, shot2: 0, shot3: 0, score: 0}),
+      frames: Array(10).fill({ shot1: 0, shot2: 0, shot3: 0, score: 0 }),
       frame: {
         shot1: 0,
         shot2: 0,
         score: 0
       },
       currFrame: 0,
-      reset: false
+      reset: false,
+      newGame: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -26,15 +27,16 @@ class App extends Component {
   handleClick(num) {
     let { frames, frame, currFrame, shot, pins } = this.state;
 
-    if (shot === 3 && frame.shot1 + frame.shot2 >= 10)  {
-        let newFrames = helpers.handleThirdShot(frames, num)
-        let newPins = helpers.randomizePins(Array(10).fill(1), num)
-        this.setState({
-          frames: newFrames,
-          pins: newPins,
-          reset: true
-        })
-        return;
+    if (shot === 3 && frame.shot1 + frame.shot2 >= 10) {
+      let newFrames = helpers.handleThirdShot(frames, num);
+      let newPins = helpers.randomizePins(Array(10).fill(1), num);
+      this.setState({
+        frames: newFrames,
+        pins: newPins,
+        newGame: true,
+        reset: true
+      });
+      return;
     }
     //if strike -> make all pins drop, set shot to 3, add strike frame to frame list
     if (num === 10 && shot === 1 && currFrame !== 9) {
@@ -60,23 +62,33 @@ class App extends Component {
       let newFrames = helpers.handleNewFrames(frames, currFrame, newFrame);
 
       //update frames, current frame, randomized pins, and increase shot by 1
-      this.setState({
-        pins: newPins,
-        shot: this.state.shot + 1,
-        frames: newFrames,
-        frame: newFrame
-      }, () => {
-        const {shot, currFrame, frame} = this.state
-        //only reset if third short before round 9 or if on third shot, score is less than 10 round 9
-        let case1 = shot === 3 && currFrame !== 9;
-        let case2 = shot === 3 && currFrame === 9 && frame.shot1 + frame.shot2 < 10 
+      this.setState(
+        {
+          pins: newPins,
+          shot: this.state.shot + 1,
+          frames: newFrames,
+          frame: newFrame
+        },
+        () => {
+          const { shot, currFrame, frame } = this.state;
+          //only reset if third short before round 9 or if on third shot, score is less than 10 round 9
+          let case1 = shot === 3 && currFrame !== 9;
+          let case2 =
+            shot === 3 && currFrame === 9 && frame.shot1 + frame.shot2 < 10;
           if (case1 || case2) {
-            this.setState({
-              reset: true
-            });
-
+            this.setState(
+              {
+                reset: true
+              },
+              () => {
+                if (currFrame === 9) {
+                  this.setState({ newGame: true });
+                }
+              }
+            );
           }
-      });
+        }
+      );
     }
   }
 
@@ -86,16 +98,17 @@ class App extends Component {
       this.setState({
         pins: Array(10).fill(1),
         shot: 1,
-        frames: Array(10).fill({shot1: 0, shot2: 0, shot3: 0, score: 0}),
+        frames: Array(10).fill({ shot1: 0, shot2: 0, shot3: 0, score: 0 }),
         frame: {
           shot1: 0,
           shot2: 0,
           shot3: 0,
           score: 0
         },
+        newGame: false,
         currFrame: 0,
         reset: false
-      })
+      });
     } else {
       this.setState({
         shot: 1,
@@ -109,7 +122,6 @@ class App extends Component {
         reset: false,
         pins: Array(10).fill(1)
       });
-
     }
   }
 
@@ -122,11 +134,15 @@ class App extends Component {
         />
         <Board pins={this.state.pins} />
         {this.state.reset ? (
-          <NextFrame handleReset={this.handleReset} />
-          
+          <NextFrame
+            newGame={this.state.newGame}
+            handleReset={this.handleReset}
+          />
         ) : (
-          
-          <Keypad handleClick={this.handleClick} handleReset={this.handleReset} />
+          <Keypad
+            handleClick={this.handleClick}
+            handleReset={this.handleReset}
+          />
         )}
       </div>
     );

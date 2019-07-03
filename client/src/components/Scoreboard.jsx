@@ -16,7 +16,7 @@ export default class Scoreboard extends Component {
               {frames.map((frame, index) => {
                 const num = index + 1;
                 return index === currFrame ? (
-                  <td>
+                  <td key={index}>
                     {num}
                     <Frame
                       currFrame={currFrame}
@@ -26,7 +26,7 @@ export default class Scoreboard extends Component {
                     />
                   </td>
                 ) : (
-                  <td>
+                  <td key={index}>
                     {num}
                     <Frame
                       currFrame={currFrame}
