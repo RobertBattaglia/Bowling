@@ -76,7 +76,7 @@ class App extends Component {
       <div>
         <Scoreboard />
         <Board pins={this.state.pins} />
-        <Keypad handleClick={this.handleClick} />
+        <Keypad handleClick={this.handleClick} handleReset={this.handleReset} />
         <NextFrame handleReset={this.handleReset} />
       </div>
     );

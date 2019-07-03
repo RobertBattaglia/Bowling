@@ -1,3 +1,6 @@
+body {
+  text-align: center;
+}
 .board {
   text-align: center;
 }
@@ -39,5 +42,5 @@
 }
 
 .btn-primary {
-  width: 50px;
+  width: 60px;
 }
