@@ -38,7 +38,6 @@ class App extends Component {
           reset: true
         })
       })
-
     }
     //if strike -> make all pins drop, set shot to 3, add strike frame to frame list
     if (num === 10 && shot === 1) {
@@ -67,7 +66,7 @@ class App extends Component {
         frames: newFrames,
         frame: newFrame
       }, () => {
-        if (shot === 2 && currFrame !== 9) {
+        if (shot === 2 && currFrame !== 9 || shot === 2 && currFrame === 9 && frame.shot1 + frame.shot2 < 10) {
           this.setState({
             reset: true
           });
@@ -77,6 +76,7 @@ class App extends Component {
   }
 
   handleReset() {
+    const { currFrame } = this.state;
     if (currFrame === 9) {
       this.setState({
         pins: Array(10).fill(1),
@@ -85,13 +85,13 @@ class App extends Component {
         frame: {
           shot1: 0,
           shot2: 0,
+          shot3: 0,
           score: 0
         },
         currFrame: 0,
         reset: false
       })
     } else {
-      const { currFrame } = this.state;
       this.setState({
         shot: 1,
         currFrame: currFrame + 1,

@@ -2,7 +2,7 @@ module.exports = {
   handleStrike: (frames, currFrame) => {
     let newFrames = frames.slice();
     let totalScore = currFrame === 0 ? 10 : frames[currFrame - 1].score + 10
-    newFrames[currFrame] = { shot1: 10, shot2: '-', score: totalScore }
+    newFrames[currFrame] = { shot1: 10, shot2: '-', shot3: '-', score: totalScore }
     return newFrames;
   },
   randomizePins: (pins, num) => {
