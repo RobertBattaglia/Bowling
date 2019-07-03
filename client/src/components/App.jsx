@@ -110,7 +110,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Scoreboard />
+        <Scoreboard
+          currFrame={this.state.currFrame}
+          frames={this.state.frames}
+        />
         <Board pins={this.state.pins} />
         {this.state.reset ? (
           <NextFrame handleReset={this.handleReset} />
