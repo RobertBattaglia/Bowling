@@ -1,7 +1,7 @@
 module.exports = {
-  handleStrike: frames => {
+  handleStrike: (frames, currFrame) => {
     let newFrames = frames.slice();
-    newFrames.push({ shot1: 10, shot2: '-', score: 10 });
+    newFrames[currFrame] = { shot1: 10, shot2: '-', score: 10 };
     return newFrames;
   },
   randomizePins: (pins, num) => {

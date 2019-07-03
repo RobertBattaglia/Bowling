@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       pins: Array(10).fill(1),
       shot: 1,
-      frames: Array(10).fill({shot1: 0, shot2: 0, score: 0}),
+      frames: Array(10).fill({ shot1: 0, shot2: 0, score: 0 }),
       frame: {
         shot1: 0,
         shot2: 0,
@@ -33,7 +33,7 @@ class App extends Component {
       this.setState({
         pins: Array(10).fill(0),
         shot: 3,
-        frames: helpers.handleStrike(frames)
+        frames: helpers.handleStrike(frames, currFrame)
       });
     } else {
       //randomize the pins depending on number clicked
@@ -74,7 +74,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Scoreboard frames={this.state.frames} />
+        <Scoreboard
+          currFrame={this.state.currFrame}
+          frames={this.state.frames}
+        />
         <Board pins={this.state.pins} />
         <Keypad handleClick={this.handleClick} handleReset={this.handleReset} />
         <NextFrame handleReset={this.handleReset} />
