@@ -66,10 +66,19 @@ class App extends Component {
         frames: newFrames,
         frame: newFrame
       }, () => {
-        if (shot === 2 && currFrame !== 9 || shot === 2 && currFrame === 9 && frame.shot1 + frame.shot2 < 10) {
+        if (shot === 2 && currFrame !== 9) {
           this.setState({
             reset: true
           });
+        } else if ( shot === 2 && currFrame === 9 && frame.shot1 + frame.shot2 === 10) {
+          this.setState({
+            pins: Array(10).fill(1)
+          })
+        } else if (shot === 2 && currFrame === 9 && frame.shot1 + frame.shot2 < 10) {
+          console.log('yes')
+          this.setState({
+            reset: true
+          })
         }
       });
     }
@@ -98,6 +107,7 @@ class App extends Component {
         frame: {
           shot1: 0,
           shot2: 0,
+          shot3: 0,
           score: 0
         },
         reset: false,
