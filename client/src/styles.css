@@ -1,3 +1,6 @@
+body {
+  text-align: center;
+}
 .board {
   text-align: center;
 }
@@ -28,4 +31,16 @@
 }
 .score {
   width: 100%;
+}
+
+/* ===================== Keypad =================== */
+.table {
+  width: 10%;
+  margin: 20px auto auto auto;
+  text-align: center;
+  padding: none;
+}
+
+.btn-primary {
+  width: 60px;
 }
