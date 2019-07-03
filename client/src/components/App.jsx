@@ -16,7 +16,7 @@ class App extends Component {
         shot2: 0,
         score: 0
       },
-      currFrame: 8,
+      currFrame: 0,
       reset: false
     };
     this.handleClick = this.handleClick.bind(this);
@@ -27,9 +27,7 @@ class App extends Component {
     let { frames, frame, currFrame, shot, pins } = this.state;
 
     if (shot === 3 && frame.shot1 + frame.shot2 >= 10)  {
-        var newFrames = frames.slice()
-        newFrames[9].shot3 = num
-        newFrames[9].score = newFrames[9].score + num
+        let newFrames = helpers.handleThirdShot(frames, num)
         let newPins = helpers.randomizePins(Array(10).fill(1), num)
         this.setState({
           frames: newFrames,
@@ -37,10 +35,10 @@ class App extends Component {
           reset: true
         })
         return;
-      // })
     }
     //if strike -> make all pins drop, set shot to 3, add strike frame to frame list
-    if (num === 10 && shot === 1) {
+    if (num === 10 && shot === 1 && currFrame !== 9) {
+      // let final = currFrame === 9 ? false : true
       this.setState({
         pins: Array(10).fill(0),
         shot: 2,
@@ -49,8 +47,10 @@ class App extends Component {
       });
     } else {
       //randomize the pins depending on number clicked
-      let newPins = helpers.randomizePins(pins, num);
+      // if (currFrame === 9) {
 
+      // }
+      let newPins = helpers.randomizePins(pins, num);
       let newFrame = Object.assign({}, frame);
       //add scoring per shot and score to new frame
       helpers.handleShots(newFrame, newPins, shot, num);
@@ -67,15 +67,15 @@ class App extends Component {
         frame: newFrame
       }, () => {
         const {shot, currFrame, frame} = this.state
-        if (shot === 3 && currFrame !== 9) {
-          this.setState({
-            reset: true
-          });
-        } else if (shot === 3 && currFrame === 9 && frame.shot1 + frame.shot2 < 10) {
-          this.setState({
-            reset: true
-          })
-        }
+        //only reset if third short before round 9 or if on third shot, score is less than 10 round 9
+        let case1 = shot === 3 && currFrame !== 9;
+        let case2 = shot === 3 && currFrame === 9 && frame.shot1 + frame.shot2 < 10 
+          if (case1 || case2) {
+            this.setState({
+              reset: true
+            });
+
+          }
       });
     }
   }

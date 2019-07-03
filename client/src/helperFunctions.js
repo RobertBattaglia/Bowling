@@ -46,5 +46,11 @@ module.exports = {
     let newFrames = frames.slice();
     newFrames[currFrame] = frame;
     return newFrames;
+  },
+  handleThirdShot: (frames, num) => {
+    var newFrames = frames.slice()
+    newFrames[9].shot3 = num
+    newFrames[9].score = newFrames[9].score + num
+    return newFrames;
   }
 };
